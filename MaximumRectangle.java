@@ -1,7 +1,26 @@
 import java.util.Stack;
 
-class LargestTriangleinHistogram {
-    public int largestRectangleArea(int[] heights) {
+class Solution {
+    public int MaximumRectangle(char[][] matrix) {
+        if(matrix.length == 0) return 0;
+        int largest = 0;
+         int heights[] = new int[matrix[0].length];
+        for(int i = 0;i<matrix.length;i++){
+          for(int j = 0;j<matrix[i].length;j++){
+            if(matrix[i][j]-'0' == 0){
+                heights[j] = 0;
+            }else{
+            heights[j] += matrix[i][j]-'0';
+            }
+          }
+          int maxArea = findLargeR(heights);
+          if(largest<maxArea){
+            largest = maxArea;
+          }
+        }
+        return largest;
+    }
+    public int findLargeR(int[] heights) {
         int prevSmall[] = findPrevSmall(heights);
        int nextSmall[] = findNextSmall(heights);
        int max = Integer.MIN_VALUE;
